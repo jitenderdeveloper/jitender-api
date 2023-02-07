@@ -32,7 +32,7 @@ const authorization = require('../middleware/checkAuth')
 // });
 
 
-router.post("/", authorization,(req, res) => {
+router.post("/", authorization, (req, res) => {
   // console.log("image file ->", req.file);
   try {
     const blog = new Blog({
@@ -48,7 +48,7 @@ router.post("/", authorization,(req, res) => {
         Blog_List: result,
       });
     });
-  } catch (error) {}
+  } catch (error) { }
 });
 
 
@@ -67,15 +67,15 @@ router.get("/", (req, res) => {
   }
 });
 
-router.get("/:id",authorization, (req, res) => {
+router.get("/:id", (req, res) => {
   try {
-    Blog.findById({_id: req.params.id})
+    Blog.findById({ _id: req.params.id })
       .then((result) => {
-      res.status(200).json({
-        message: "Fetch Data",
-        Blog_List: result,
+        res.status(200).json({
+          message: "Fetch Data",
+          Blog_List: result,
+        });
       });
-    });
   } catch (error) {
     res.status(400).json({
       message: "GET Blog is not working...",
@@ -85,7 +85,7 @@ router.get("/:id",authorization, (req, res) => {
 
 
 
-router.delete("/:id",authorization, (req, res) => {
+router.delete("/:id", authorization, (req, res) => {
   try {
     Blog.remove({ _id: req.params.id }).then((result) => {
       res.status(200).json({
@@ -99,7 +99,7 @@ router.delete("/:id",authorization, (req, res) => {
   }
 });
 
-router.put("/:id",authorization,(req, res) => {
+router.put("/:id", authorization, (req, res) => {
   try {
     Blog.findByIdAndUpdate(
       { _id: req.params.id },
