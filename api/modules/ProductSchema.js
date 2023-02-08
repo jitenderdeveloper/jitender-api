@@ -8,6 +8,7 @@ const ProductSchema = new mongoose.Schema(
     logo: String,
     category: String,
     link: String,
+    image: String,
   },
   {
     timestamps: true,

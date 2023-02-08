@@ -34,7 +34,7 @@ const authorization = require('../middleware/checkAuth')
 
 
 
-router.post("/",authorization, (req, res) => {
+router.post("/", authorization, (req, res) => {
   // console.log("image file ->", req.file);
   const Products = new Product({
     title: req.body.title,
@@ -43,6 +43,7 @@ router.post("/",authorization, (req, res) => {
     logo: req.body.logo,
     category: req.body.category,
     link: req.body.link,
+    image: req.body.image
   });
   Products.save()
     .then((result) => {
@@ -62,11 +63,11 @@ router.post("/",authorization, (req, res) => {
 router.get("/", (req, res) => {
   try {
     Product.find()
-    .then((result) => {
-      res.status(200).json({
-        Product_List: result,
+      .then((result) => {
+        res.status(200).json({
+          Product_List: result,
+        });
       });
-    });
   } catch (error) {
     res.status(500).json({
       error: "GET Product Schema is not working...",
@@ -76,12 +77,12 @@ router.get("/", (req, res) => {
 
 router.get("/:id", (req, res) => {
   try {
-    Product.findById({_id: req.params.id})
-    .then((result) => {
-      res.status(200).json({
-        Product_List: result,
+    Product.findById({ _id: req.params.id })
+      .then((result) => {
+        res.status(200).json({
+          Product_List: result,
+        });
       });
-    });
   } catch (error) {
     res.status(500).json({
       error: "GET Product Schema is not working...",
@@ -90,7 +91,7 @@ router.get("/:id", (req, res) => {
 });
 
 
-router.delete("/:id",authorization, (req, res) => {
+router.delete("/:id", authorization, (req, res) => {
   Product.remove({ _id: req.params.id })
     .then((result) => {
       res.status(200).json({
@@ -106,17 +107,18 @@ router.delete("/:id",authorization, (req, res) => {
 });
 
 
-router.put("/:id",authorization,(req, res) => {
-  Product.findByIdAndUpdate({ _id: req.params.id },{
-      $set: {
-        title: req.body.title,
-        price: req.body.price,
-        description: req.body.description,
-        logo: req.body.logo,
-        category: req.body.category,
-        link: req.body.link,
-      },
-    }
+router.put("/:id", authorization, (req, res) => {
+  Product.findByIdAndUpdate({ _id: req.params.id }, {
+    $set: {
+      title: req.body.title,
+      price: req.body.price,
+      description: req.body.description,
+      logo: req.body.logo,
+      category: req.body.category,
+      link: req.body.link,
+      image: req.body.image
+    },
+  }
   )
     .then((result) => {
       res.status(200).json({
